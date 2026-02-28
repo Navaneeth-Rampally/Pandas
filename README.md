@@ -32,7 +32,8 @@ DataFrame → 2D labeled tabular data
 
 1️. **Reading Data**- Reading data means loading datasets from external sources (CSV, Excel, JSON, SQL, etc.) into a Pandas DataFrame.
 
-🔹 Syntax
+🔹 **Syntax**
+
 **CSV file**
 df = pd.read_csv("data.csv")
 
@@ -50,7 +51,8 @@ df = pd.read_sql("SELECT * FROM table_name", conn)
 
 2️⃣ **Inspection of Data** - Data inspection helps understand the structure, size, types, and summary statistics of the dataset.
 
-🔹 Syntax
+🔹 **Syntax**
+
 df.head()        # First 5 rows
 df.tail()        # Last 5 rows
 df.info()        # Data types and null counts
