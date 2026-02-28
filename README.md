@@ -33,16 +33,16 @@ DataFrame → 2D labeled tabular data
 1️. **Reading Data**- Reading data means loading datasets from external sources (CSV, Excel, JSON, SQL, etc.) into a Pandas DataFrame.
 
 🔹 Syntax
-# CSV file
+**CSV file**
 df = pd.read_csv("data.csv")
 
-# Excel file
+**Excel file**
 df = pd.read_excel("data.xlsx")
 
-# JSON file
+**JSON file**
 df = pd.read_json("data.json")
 
-# SQL
+**SQL**
 import sqlite3
 conn = sqlite3.connect("database.db")
 df = pd.read_sql("SELECT * FROM table_name", conn)
@@ -66,7 +66,8 @@ df.dtypes        # Data types
 
 **Definition**- Selecting specific rows and columns from a dataset.
 
-🔹 Syntax
+🔹 **Syntax**
+
 df["column_name"]                  # Select single column
 df[["col1", "col2"]]               # Multiple columns
 df.loc[0:5, ["col1", "col2"]]      # Label-based selection
@@ -81,7 +82,8 @@ df[df["age"] > 25]
 **3.2 Handling Missing Values**
 🔹 **Definition**- Managing null/NaN values in the dataset.
 
-🔹 Syntax
+🔹 **Syntax**
+
 df.isnull()            # Detect missing values
 df.isnull().sum()      # Count missing values
 
@@ -95,7 +97,8 @@ df["col"].fillna(df["col"].mean(), inplace=True)
 
 🔹 **Definition** - Changing column data types for correct analysis.
 
-🔹 Syntax
+🔹 **Syntax**
+
 df["age"] = df["age"].astype(int)
 
 df["date"] = pd.to_datetime(df["date"])
@@ -106,7 +109,8 @@ df["category_col"] = df["category_col"].astype("category")
 **3.4 Removing Duplicates**
 🔹 **Definition**- Eliminating duplicate rows to maintain data integrity.
 
-🔹 Syntax
+🔹 **Syntax**
+
 df.duplicated()             # Check duplicates
 df.drop_duplicates()        # Remove duplicates
 
@@ -119,7 +123,8 @@ df.drop_duplicates(subset=["col1"])
 **4.1 Sorting Data**
 🔹 **Definition**- Arranging data in ascending or descending order.
 
-🔹 Syntax
+🔹 **Syntax**
+
 df.sort_values("age")                     # Ascending
 df.sort_values("age", ascending=False)    # Descending
 
@@ -129,7 +134,8 @@ df.sort_values(["col1", "col2"])
 **4.2 Value Counts**
 🔹 **Definition**- Counting frequency of unique values.
 
-🔹 Syntax
+🔹 **Syntax**
+
 df["gender"].value_counts()
 df["gender"].value_counts(normalize=True)  # Percentage
 
@@ -137,7 +143,8 @@ df["gender"].value_counts(normalize=True)  # Percentage
 **4.3 Grouping Data (GroupBy)**
 🔹 **Definition**- Grouping data based on categories to perform aggregation.
 
-🔹 Syntax
+🔹 **Syntax**
+
 df.groupby("department")["salary"].mean()
 
 df.groupby("department").agg({
@@ -147,9 +154,12 @@ df.groupby("department").agg({
 
 
 **4.4 Feature Engineering**
+
+
 🔹 **Definition**- Creating new features (columns) from existing data to improve analysis.
 
-🔹 Syntax
+🔹 **Syntax**
+
 df["bonus"] = df["salary"] * 0.10
 
 df["age_group"] = df["age"].apply(lambda x: "Adult" if x >= 18 else "Minor")
@@ -158,7 +168,8 @@ df["age_group"] = df["age"].apply(lambda x: "Adult" if x >= 18 else "Minor")
 5️⃣ **Pivot Tables**
 🔹 **Definition**- Summarizing data in a table format using aggregation.
 
-🔹 Syntax
+🔹 **Syntax**
+
 pd.pivot_table(
     df,
     values="sales",
@@ -169,7 +180,8 @@ pd.pivot_table(
 6️⃣ **Merging Tables**
 🔹 **Definition**- Combining multiple DataFrames based on a common column (like SQL joins).
 
-🔹 Syntax
+🔹 **Syntax**
+
 **Inner Join**
 pd.merge(df1, df2, on="id", how="inner")
 
@@ -188,11 +200,12 @@ pd.merge(df1, df2, on="id", how="outer")
 
 🔹 **Definition**- Saving processed data to external files.
 
-🔹 Syntax
+🔹 **Syntax**
+
 df.to_csv("output.csv", index=False)
 
 df.to_excel("output.xlsx", index=False)
 
 df.to_json("output.json")
-📊 End-to-End Workflow Summary
+
 
