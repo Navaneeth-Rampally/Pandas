@@ -1,155 +1,198 @@
-Markdown
-# 🐼 Pandas Data Analysis Toolkit
+🐼 Pandas Data Analysis – Complete Practical Guide
 
-Welcome to my Pandas Data Analysis repository! This project serves as a comprehensive guide and reference for essential data manipulation techniques using the Python `pandas` library.
+A structured repository documenting my hands-on learning and implementation of Pandas, the powerful Python library used for data manipulation and analysis.
 
-Below is a summary of the core concepts covered in this repository, including definitions and syntax references.
+This README covers:
 
-## 📋 Table of Contents
-1. [Reading & Inspecting Data](#1-reading--inspecting-data)
-2. [Handling Data](#2-handling-data)
-3. [Data Transformation & Analysis](#3-data-transformation--analysis)
-4. [Advanced Operations](#4-advanced-operations)
-5. [Exporting Data](#5-exporting-data)
+**1. Data Reading**
 
----
+**2. Data Inspection**
 
-## 1. Reading & Inspecting Data
+**3. Data Handling**
 
-### Reading Data
-Loading data from external sources into a Pandas DataFrame.
-```python
+**4. Data Transformation & Analysis**
+
+**5. Pivot Tables**
+
+**6. Merging Tables**
+
+**7. Exporting Datasets**
+
+📌 **What is Pandas?**
+
+Pandas is an open-source Python library built on top of NumPy, designed for fast, flexible, and expressive data analysis.
+
 import pandas as pd
 
-# Reading a CSV file
-df = pd.read_csv('filename.csv')
+Core Data Structures:
 
-# Reading an Excel file
-df = pd.read_excel('filename.xlsx')
-Inspection of Data
-Quickly viewing the structure, summary, and integrity of the dataset.
+Series → 1D labeled array
 
-Python
-# View top 5 rows
-df.head()
+DataFrame → 2D labeled tabular data
 
-# View summary of columns, non-null counts, and data types
-df.info()
+1️. **Reading Data**- Reading data means loading datasets from external sources (CSV, Excel, JSON, SQL, etc.) into a Pandas DataFrame.
 
-# Statistical summary of numerical columns
-df.describe()
+🔹 Syntax
+# CSV file
+df = pd.read_csv("data.csv")
 
-# Check shape (rows, columns)
-df.shape
-2. Handling Data
-Data Selection
-Extracting specific rows and columns.
+# Excel file
+df = pd.read_excel("data.xlsx")
 
-.loc: Label-based selection.
+# JSON file
+df = pd.read_json("data.json")
 
-.iloc: Integer index-based selection.
+# SQL
+import sqlite3
+conn = sqlite3.connect("database.db")
+df = pd.read_sql("SELECT * FROM table_name", conn)
 
-Python
-# Select specific column
-df['Column_Name']
 
-# Select rows by index (integer position)
-df.iloc[0:5] 
+2️⃣ **Inspection of Data** - Data inspection helps understand the structure, size, types, and summary statistics of the dataset.
 
-# Select rows by label/condition
-df.loc[df['Age'] > 25]
-Handling Missing Values
-Identifying and managing NaN (Not a Number) or null values.
+🔹 Syntax
+df.head()        # First 5 rows
+df.tail()        # Last 5 rows
+df.info()        # Data types and null counts
+df.describe()    # Statistical summary
+df.shape         # (rows, columns)
+df.columns       # Column names
+df.dtypes        # Data types
 
-Python
-# Check for missing values
-df.isnull().sum()
 
-# Drop rows with missing values
-df.dropna()
+3️⃣ **Handling Data**
 
-# Fill missing values with a specific value (e.g., 0 or mean)
-df.fillna(0)
-df['Column'].fillna(df['Column'].mean())
-Datatype Conversion
-Changing the data type of a series (column) to optimize memory or enable specific operations.
+**3.1 Data Selection**
 
-Python
-# Convert a column to integer
-df['Price'] = df['Price'].astype(int)
+**Definition**- Selecting specific rows and columns from a dataset.
 
-# Convert to datetime
-df['Date'] = pd.to_datetime(df['Date'])
-Removing Duplicates
-Identifying and removing duplicate rows to ensure data uniqueness.
+🔹 Syntax
+df["column_name"]                  # Select single column
+df[["col1", "col2"]]               # Multiple columns
+df.loc[0:5, ["col1", "col2"]]      # Label-based selection
+df.iloc[0:5, 0:2]                  # Index-based selection
 
-Python
-# Drop duplicate rows
-df.drop_duplicates(inplace=True)
+**Conditional filtering**
 
-# Check for duplicates
-df.duplicated().sum()
-3. Data Transformation & Analysis
-Sorting Data
-Ordering data based on the values of one or more columns.
 
-Python
-# Sort by a column in ascending order
-df.sort_values(by='Price', ascending=True)
+df[df["age"] > 25]
 
-# Sort by multiple columns
-df.sort_values(by=['Date', 'Price'], ascending=[True, False])
-Value Counts
-Counting the frequency of unique values in a column. Great for categorical data.
 
-Python
-# Count occurrences of unique values
-df['Category'].value_counts()
-Grouping Data
-Grouping data points based on categories and applying aggregation functions (sum, mean, count).
+**3.2 Handling Missing Values**
+🔹 **Definition**- Managing null/NaN values in the dataset.
 
-Python
-# Group by 'Category' and calculate mean of 'Price'
-df.groupby('Category')['Price'].mean()
+🔹 Syntax
+df.isnull()            # Detect missing values
+df.isnull().sum()      # Count missing values
 
-# Multiple aggregations
-df.groupby('Region').agg({'Sales': 'sum', 'Profit': 'mean'})
-Feature Engineering
-Creating new columns or modifying existing ones to extract more insight.
+df.dropna()            # Remove rows with null values
+df.fillna(0)           # Replace null values with 0
 
-Python
-# Creating a new column from existing data
-df['Total_Cost'] = df['Quantity'] * df['Unit_Price']
+df["col"].fillna(df["col"].mean(), inplace=True)
 
-# Applying a function to a column
-df['Discounted_Price'] = df['Price'].apply(lambda x: x * 0.9)
-4. Advanced Operations
-Pivot Tables
-Reshaping data to summarize it, similar to Excel Pivot Tables.
 
-Python
-pivot = pd.pivot_table(
-    df, 
-    values='Sales', 
-    index='Region', 
-    columns='Year', 
-    aggfunc='sum'
+**3.3 Datatype Conversion**\
+
+🔹 **Definition** - Changing column data types for correct analysis.
+
+🔹 Syntax
+df["age"] = df["age"].astype(int)
+
+df["date"] = pd.to_datetime(df["date"])
+
+df["category_col"] = df["category_col"].astype("category")
+
+
+**3.4 Removing Duplicates**
+🔹 **Definition**- Eliminating duplicate rows to maintain data integrity.
+
+🔹 Syntax
+df.duplicated()             # Check duplicates
+df.drop_duplicates()        # Remove duplicates
+
+df.drop_duplicates(subset=["col1"])
+
+
+4️⃣ **Data Transformation & Analysis**
+
+
+**4.1 Sorting Data**
+🔹 **Definition**- Arranging data in ascending or descending order.
+
+🔹 Syntax
+df.sort_values("age")                     # Ascending
+df.sort_values("age", ascending=False)    # Descending
+
+df.sort_values(["col1", "col2"])
+
+
+**4.2 Value Counts**
+🔹 **Definition**- Counting frequency of unique values.
+
+🔹 Syntax
+df["gender"].value_counts()
+df["gender"].value_counts(normalize=True)  # Percentage
+
+
+**4.3 Grouping Data (GroupBy)**
+🔹 **Definition**- Grouping data based on categories to perform aggregation.
+
+🔹 Syntax
+df.groupby("department")["salary"].mean()
+
+df.groupby("department").agg({
+    "salary": "mean",
+    "age": "max"
+})
+
+
+**4.4 Feature Engineering**
+🔹 **Definition**- Creating new features (columns) from existing data to improve analysis.
+
+🔹 Syntax
+df["bonus"] = df["salary"] * 0.10
+
+df["age_group"] = df["age"].apply(lambda x: "Adult" if x >= 18 else "Minor")
+
+
+5️⃣ **Pivot Tables**
+🔹 **Definition**- Summarizing data in a table format using aggregation.
+
+🔹 Syntax
+pd.pivot_table(
+    df,
+    values="sales",
+    index="region",
+    columns="product",
+    aggfunc="sum"
 )
-Merging Tables
-Combining two DataFrames based on a common key (similar to SQL JOINs).
+6️⃣ **Merging Tables**
+🔹 **Definition**- Combining multiple DataFrames based on a common column (like SQL joins).
 
-Python
-# Inner Join
-merged_df = pd.merge(df1, df2, on='User_ID', how='inner')
+🔹 Syntax
+**Inner Join**
+pd.merge(df1, df2, on="id", how="inner")
 
-# Concatenating (Stacking data vertically)
-combined_df = pd.concat([df1, df2], axis=0)
-5. Exporting Data
-Saving the cleaned and transformed DataFrame back to a file.
+**Left Join**
+pd.merge(df1, df2, on="id", how="left")
 
-Python
-# Save to CSV (without index numbers)
-df.to_csv('cleaned_data.csv', index=False)
+**Right Join**
+pd.merge(df1, df2, on="id", how="right")
 
-# Save to Excel
-df.to_excel('report.xlsx', index=False)
+**Outer Join**
+pd.merge(df1, df2, on="id", how="outer")
+
+
+7️⃣ **Exporting Datasets**
+
+
+🔹 **Definition**- Saving processed data to external files.
+
+🔹 Syntax
+df.to_csv("output.csv", index=False)
+
+df.to_excel("output.xlsx", index=False)
+
+df.to_json("output.json")
+📊 End-to-End Workflow Summary
+
